@@ -123,9 +123,10 @@ public:
 						if (j.id == ToFindId)
 						{
 							std::string detail = j.detail.empty() ? j.brief : j.detail;
-							detail += "\r\nlocal path:";
+							detail += "\r\nlocal path: ";
 							detail += j.path;
-							detail += "\r\nrepo path:";
+							detail += "\r\nrepo path: ";
+							detail += j.repo;
 							SetDlgItemText(IDC_EDIT1, StringConverter::UTF8ToUnicode(detail).c_str());
 							goto OnTreeSelChangedEnd;
 						}
