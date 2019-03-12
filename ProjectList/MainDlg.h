@@ -194,7 +194,7 @@ public:
 				pcs.className = i;
 				pcs.classBrief = jv["class_brif"].asString();
 				CString str = StringConverter::UTF8ToUnicode(pcs.classBrief).c_str();// --
-				HTREEITEM hParent = tree.InsertItem(str, 0, 1, TVI_ROOT, TVI_LAST);// --
+				HTREEITEM hParent = tree.InsertItem(str+_T("    "), 0, 1, TVI_ROOT, TVI_LAST);// --
 				Json::Value jvArr = jv["projects"];
 				for (int i = 0; i != jvArr.size(); i++)
 				{
@@ -209,7 +209,7 @@ public:
 					pcs.projects.push_back(opi);
 					std::string itemText = std::string("[") + opi.id + "]" + "[" + opi.name + "]" + opi.brief;// --
 					CString strItem = StringConverter::UTF8ToUnicode(itemText).c_str();// --
-					tree.InsertItem(strItem, 0, 1, hParent, TVI_LAST);// --
+					tree.InsertItem(strItem+_T("    "), 0, 1, hParent, TVI_LAST);// --
 				}
 				tree.Expand(hParent, TVE_EXPAND); // --
 				m_projectsClassSpecified.push_back(pcs);
