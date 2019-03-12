@@ -206,10 +206,23 @@ public:
 					opi.detail = jvp["detail"].asString();
 					opi.path = jvp["path"].asString();
 					opi.repo = jvp["repo"].asString();
+					bool isPrimary = false;
+					if (jvp.isMember("primary"))
+					{
+						if (jvp["primary"].asString() == "yes")
+						{
+							isPrimary = true;
+						}
+					}
 					pcs.projects.push_back(opi);
 					std::string itemText = std::string("[") + opi.id + "]" + "[" + opi.name + "]" + opi.brief;// --
 					CString strItem = StringConverter::UTF8ToUnicode(itemText).c_str();// --
-					tree.InsertItem(strItem+_T("    "), 0, 1, hParent, TVI_LAST);// --
+					if (isPrimary)
+					{
+						tree.InsertItem(strItem + _T("    "), 2, 2, hParent, TVI_LAST);// --
+					}
+					else
+						tree.InsertItem(strItem+_T("    "), 0, 1, hParent, TVI_LAST);// --
 				}
 				tree.Expand(hParent, TVE_EXPAND); // --
 				m_projectsClassSpecified.push_back(pcs);
