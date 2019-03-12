@@ -23,7 +23,6 @@ struct ONE_PROJECT_INFO
 
 struct PROJECT_CLASS_SP
 {
-	std::string className;
 	std::string classBrief;
 	std::vector<ONE_PROJECT_INFO> projects;
 };
@@ -175,15 +174,10 @@ public:
 			MessageBox(_T("∂¡»°≈‰÷√ ß∞‹¡À1"));
 			return FALSE;
 		}
-		std::vector<std::string> classes = jvRoot.getMemberNames();
-		if (classes.empty())
+		Json::Value jvClassArray = jvRoot["classes"];
+		for (int k = 0; k != jvClassArray.size(); k++)
 		{
-			MessageBox(_T("∂¡»°≈‰÷√ ß∞‹¡À2"));
-			return FALSE;
-		}
-		for (auto i : classes)
-		{
-			Json::Value jv = jvRoot[i];
+			Json::Value jv = jvClassArray[k];
 			if (!jv.isObject())
 			{
 				return false;
@@ -191,7 +185,6 @@ public:
 			else
 			{
 				PROJECT_CLASS_SP pcs;
-				pcs.className = i;
 				pcs.classBrief = jv["class_brif"].asString();
 				CString str = StringConverter::UTF8ToUnicode(pcs.classBrief).c_str();// --
 				HTREEITEM hParent = tree.InsertItem(str+_T("    "), 0, 1, TVI_ROOT, TVI_LAST);// --
